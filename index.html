@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Selamat Datang - Angkringan Birawa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(to bottom right, #ffecd2, #fcb69f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+    }
+    h1 {
+      color: #d62828;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-block;
+      background: #43aa8b;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      margin: 5px;
+    }
+    .btn:hover {
+      background: #379b7a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Selamat Datang di<br>Angkringan Birawa</h1>
+    <a href="menu.html" class="btn">Pesan Sekarang</a>
+  </div>
+
+  <script>
+    // Hapus histori pesanan saat halaman utama dibuka
+    localStorage.removeItem("pesananAngkringan");
+  </script>
+</body>
+</html>

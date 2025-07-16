@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pembayaran</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: 'Nunito', sans-serif; background: #fffbe6; padding: 20px; }
+    h1 { text-align: center; color: #d62828; }
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 0 10px #ccc;
+    }
+    .total { font-size: 1.2em; color: #2e7d32; margin-top: 10px; }
+    .btn {
+      background: #43aa8b;
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 1.1em;
+      cursor: pointer;
+      margin-top: 15px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+    .btn.back { background: #f77f00; }
+    .btn.home { background: #888; }
+  </style>
+</head>
+<body>
+
+<h1>Konfirmasi Pembayaran</h1>
+<div class="form-container">
+  <div id="detailPesanan"></div>
+
+  <h2>Pilih Metode Pembayaran</h2>
+  <label><input type="radio" name="metode" value="QRIS"> QRIS </label> Di kasir<br>
+  <label><input type="radio" name="metode" value="Bayar di Tempat"> Cash Dikasir</label><br>
+
+  <div id="metodeDetail" style="margin-top:10px;"></div>
+  <button class="btn" onclick="kirimWhatsApp()">📤 Kirim ke WhatsApp</button>
+  <a href="menu.html" class="btn back">🔙 Kembali ke Pesanan</a>
+  <a href="index.html" class="btn home">🏠 Halaman Utama</a>
+</div>
+
+<script>
+  const data = JSON.parse(localStorage.getItem("pesananAngkringan")) || {};
+  const hargaMenu = {
+    nasiBakar: 7000,
+    esTeh: 5000,
+    sateAyam: 25000
+  };
+  const namaMenu = {
+    nasiBakar: "Nasi Bakar",
+    esTeh: "Es Teh",
+    sateAyam: "Sate Ayam"
+  };
+
+  let detail = `<p><strong>Nama:</strong> ${data.nama}</p><ul>`;
+  for (let item in data.pesanan) {
+    if (data.pesanan[item] > 0) {
+      detail += `<li>${namaMenu[item]}: ${data.pesanan[item]} x Rp${hargaMenu[item].toLocaleString("id-ID")}</li>`;
+    }
+  }
+  detail += `</ul><p class="total">Total: Rp${data.total.toLocaleString("id-ID")}</p>`;
+  document.getElementById("detailPesanan").innerHTML = detail;
+
+  document.querySelectorAll('input[name="metode"]').forEach(radio => {
+    radio.addEventListener('change', function () {
+      const val = this.value;
+      const el = document.getElementById("metodeDetail");
+      if (val === "QRIS") {
+        el.innerHTML = "<img src='https://via.placeholder.com/200x200.png?text=QRIS'>";
+      } else if (val === "Transfer Bank") {
+        el.innerHTML = "Transfer ke BCA 1234567890 a.n. Angkringan Birawa";
+      } else {
+        el.innerHTML = "Bayar di tempat saat pesanan tiba.";
+      }
+    });
+  });
+
+  function kirimWhatsApp() {
+    if (!data || !data.nama || !data.pesanan) {
+      alert("Data pesanan tidak ditemukan. Silakan kembali ke menu dan lakukan pemesanan ulang.");
+      return;
+    }
+
+    const metode = document.querySelector('input[name="metode"]:checked');
+    if (!metode) {
+      alert("Pilih metode pembayaran!");
+      return;
+    }
+
+    let pesan = `📋 Pesanan dari: ${data.nama}\n\n🛒 Pesanan:\n`;
+    for (let item in data.pesanan) {
+      if (data.pesanan[item] > 0) {
+        const nama = item.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/_/g, ' ');
+        const jumlah = data.pesanan[item];
+        const harga = hargaMenu[item] || 0;
+        pesan += `- ${nama}: ${jumlah} x Rp${(harga * jumlah).toLocaleString("id-ID")}\n`;
+      }
+    }
+
+    pesan += `\n💰 Total: Rp${data.total?.toLocaleString("id-ID") || 0}\n📦 Pembayaran: ${metode.value}\n\nTerima kasih 🙏`;
+
+    const wa = "6281258214836";
+    window.open(`https://wa.me/${wa}?text=${encodeURIComponent(pesan)}`, "_blank");
+  }
+</script>
+
+</body>
+</html>
