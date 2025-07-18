@@ -54,15 +54,89 @@
 <script>
   const data = JSON.parse(localStorage.getItem("pesananAngkringan")) || {};
   const hargaMenu = {
-    nasiBakar: 7000,
-    esTeh: 5000,
-    sateAyam: 25000
-  };
-  const namaMenu = {
-    nasiBakar: "Nasi Bakar",
-    esTeh: "Es Teh",
-    sateAyam: "Sate Ayam"
-  };
+  nasibakar: 7000,
+  indomie: 7000,
+  gorengan: 5000,
+  goodayfreeze: 6000,
+  indocafepanas: 5000,
+  esteh: 3000,
+  maca: 6000,
+  sateAyam: 25000,
+  abcpanas: 3000,
+  ampela: 3000,
+  bakso: 3000,
+  bengbeng: 3000,
+  ceker: 3000,
+  cikua: 3000,
+  cumi: 3000,
+  estehmanis: 3000,
+  fishroll: 3000,
+  goodaycoklat: 3000,
+  goodaycoklatpanas: 3000,
+  goodaymerah: 3000,
+  goodaymerahpanas: 3000,
+  hati: 3000,
+  kapalapipanas: 3000,
+  klepon: 3000,
+  kulit: 3000,
+  milo: 3000,
+  nutrisarianggur: 3000,
+  nutrisarijerukperas: 3000,
+  nutrisariorange: 3000,
+  sosis: 3000,
+  susu: 3000,
+  susupanas: 3000,
+  tehmanispanas: 3000,
+  tehtarik: 3000,
+  telorpuyuh: 3000,
+  tofu: 3000,
+  twister: 3000,
+  usus: 3000,
+  wedangjahe: 3000
+};
+
+const namaMenu = {
+  nasibakar: "Nasi Bakar",
+  indomie: "Indomie",
+  gorengan: "Gorengan 3pcs",
+  goodayfreeze: "Gooday Freeze",
+  indocafepanas: "Indocafe Panas",
+  esteh: "Teajus",
+  maca: "Maca",
+  sateAyam: "Sate Ayam",
+  abcpanas: "AbcPanas",
+  ampela: "Ampela",
+  bakso: "Bakso",
+  bengbeng: "Bengbeng",
+  ceker: "Ceker",
+  cikua: "Cikua",
+  cumi: "Cumi",
+  estehmanis: "Estehmanis",
+  fishroll: "Fishroll",
+  goodaycoklat: "Goodaycoklat",
+  goodaycoklatpanas: "GoodaycoklatPanas",
+  goodaymerah: "Goodaymerah",
+  goodaymerahpanas: "GoodaymerahPanas",
+  hati: "Hati",
+  kapalapipanas: "KapalapiPanas",
+  klepon: "Klepon",
+  kulit: "Kulit",
+  milo: "Milo",
+  nutrisarianggur: "Nutrisarianggur",
+  nutrisarijerukperas: "Nutrisarijerukperas",
+  nutrisariorange: "Nutrisariorange",
+  sosis: "Sosis",
+  susu: "Susu",
+  susupanas: "SusuPanas",
+  tehmanispanas: "TehmanisPanas",
+  tehtarik: "Tehtarik",
+  telorpuyuh: "Telorpuyuh",
+  tofu: "Tofu",
+  twister: "Twister",
+  usus: "Usus",
+  wedangjahe: "Wedangjahe"
+};
+  
 
   let detail = `<p><strong>Nama:</strong> ${data.nama}</p><ul>`;
   for (let item in data.pesanan) {
@@ -78,11 +152,11 @@
       const val = this.value;
       const el = document.getElementById("metodeDetail");
       if (val === "QRIS") {
-        el.innerHTML = "<img src='https://via.placeholder.com/200x200.png?text=QRIS'>";
+        el.innerHTML = "Scan Qris dikasir Bro";
       } else if (val === "Transfer Bank") {
         el.innerHTML = "Transfer ke BCA 1234567890 a.n. Angkringan Birawa";
       } else {
-        el.innerHTML = "Bayar di tempat saat pesanan tiba.";
+        el.innerHTML = "Bayar di kasir uang pas OK .";
       }
     });
   });
@@ -109,8 +183,7 @@
       }
     }
 
-    pesan += `\n Total: Rp${data.total?.toLocaleString("id-ID") || 0}\n Pembayaran: ${metode.value}\n\nTerima kasih kakak | BirawaTeam
-    "Note" Harga Pesanan Rp0,Tenang Total Tetap Benar kok `
+    pesan += `\n Total: Rp${data.total?.toLocaleString("id-ID") || 0}\n Pembayaran: ${metode.value}\n\nTerima kasih kakak | BirawaTeam`
     const wa = "6281534248999";
     window.open(`https://wa.me/${wa}?text=${encodeURIComponent(pesan)}`, "_blank");
   }
